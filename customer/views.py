@@ -18,17 +18,13 @@ def customer_list(request):
 		return JsonResponse(serializer.data, safe=False)
 
 	elif request.method == 'POST':
-		#print(request.body)
-		#data = JSONParser().parse(request.body)
-		#data=request.body
 		body_unicode = request.body
 		body = json.loads(body_unicode)
-		print(body)
-		serializer = CustomersSerializer(data=data)
+		serializer = CustomersSerializer(data=body)
 		if serializer.is_valid():
 			serializer.save()
-			return JsonResponse(serializer.data, status=201)
-		return JsonResponse(serializer.errors, status=400)
+			return HttpResponse('created', status=201)
+		return HttpResponse('Something went wrong', status=400)
 
 @csrf_exempt
 def customer_detail(request, pk):
@@ -42,14 +38,15 @@ def customer_detail(request, pk):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = CustomersSerializer(customers, data=data)
+        body_unicode = request.body
+        body = json.loads(body_unicode)
+        serializer = CustomersSerializer(customers, data=body)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
 
     elif request.method == 'DELETE':
-        customer.delete()
+        customers.delete()
         return HttpResponse(status=204)
 
