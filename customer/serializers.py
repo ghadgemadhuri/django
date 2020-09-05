@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from customer.models import Customers,Bill
+
+
+
 """
 class CustomersSerializer(serializers.Serializer):
 	customer_id=serializers.AutoField(primary_key=True)
@@ -25,4 +28,3 @@ class BillSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model= Bill
 		fields=['url','customer_id','bill_id','bill_date','amount','discount']
-			

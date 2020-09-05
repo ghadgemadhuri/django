@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 #from django.db import models
 
-
 class Customers(models.Model):
     customer_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
